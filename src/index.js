@@ -1,14 +1,15 @@
-import React from "react"
-import { createRoot } from 'react-dom/client'
-import App from './App'
+
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App'; // Import your main application component
 
 import { AppProvider } from "./hooks/contextAPI"
 
-const root = createRoot(document.getElementById('root')) 
-root.render(
-<AppProvider>
-    <App />
-</AppProvider>
-    )  
-
-    
+ReactDOM.render(
+  <React.StrictMode>
+    <AppProvider>
+      <App />
+      </AppProvider>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
