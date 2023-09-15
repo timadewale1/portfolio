@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import SinglePost from '../../components/signlePost/SinglePost'
-import Fade from 'react-reveal/Fade'
+import { Fade } from 'react-awesome-reveal'
 import { blogData } from '../../data/blogData'
 import "./blogpage.scss"
 

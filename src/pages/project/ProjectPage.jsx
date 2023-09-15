@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react"
-import Fade from 'react-reveal/Fade'
+import { Fade } from 'react-awesome-reveal'
 import Blast from '../../components/BlastAnimation/Blast'
 import Project from "../../components/projects/Project"
 import { projects } from './index'

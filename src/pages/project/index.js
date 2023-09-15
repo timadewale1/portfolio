@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { GrGithub } from 'react-icons/gr'
 import { TbWorld } from 'react-icons/tb'
 

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react'
 import { FiSettings } from 'react-icons/fi'
 import { BsMoonStars, BsFillSunFill, BsXLg } from 'react-icons/bs'

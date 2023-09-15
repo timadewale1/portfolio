@@ -1,7 +1,7 @@
 import React, { useEffect, useState} from 'react'
 import myCV from '../../assets/images/Timilehin.pdf'
-import Reveal from "react-reveal/Reveal"
-import Fade from 'react-reveal/Fade'
+import { Reveal } from 'react-awesome-reveal'
+import { Fade } from 'react-awesome-reveal'
  
 import Blast from '../../components/BlastAnimation/Blast'
 import Cards from '../../components/skillsCards/Cards'

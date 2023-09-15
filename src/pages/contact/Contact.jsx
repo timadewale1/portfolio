@@ -3,8 +3,8 @@ import { BsExclamationLg, BsPatchCheckFill } from 'react-icons/bs'
 import { RiSendPlane2Fill } from 'react-icons/ri'
 import Blast from '../../components/BlastAnimation/Blast'
 import Map from '../../components/map/Map'
-import Fade from 'react-reveal/Fade'
-import Reveal from 'react-reveal/Reveal'
+import { Reveal } from 'react-awesome-reveal'
+import { Fade } from 'react-awesome-reveal'
 
 
 // Email js

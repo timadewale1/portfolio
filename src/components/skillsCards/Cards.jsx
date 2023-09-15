@@ -1,6 +1,7 @@
+/* eslint-disable */
 import React from "react"
 import { DiVim } from "react-icons/di"
-import Fade from 'react-reveal/Fade'
+import { Fade } from 'react-awesome-reveal'
 import { skillSet } from '../../data/data'
 
 import "./cards.scss"
