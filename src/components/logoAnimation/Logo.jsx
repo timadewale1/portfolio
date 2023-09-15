@@ -1,40 +1,51 @@
-import React from 'react'
-import "./logo.scss"
-import gsap from "gsap"
-import { DrawSVGPlugin } from 'gsap-trial/DrawSVGPlugin'
+import React, { useEffect, useRef } from "react";
+import "./logo.scss";
+import anime from "animejs";
 
 const Logo = () => {
-    const bgRef = React.useRef()
-    const outLineRef = React.useRef()
-    const outLineRef2 = React.useRef()
-    const solidLogoRef = React.useRef()
+  const bgRef = useRef();
+  const outLineRef = useRef();
+  const outLineRef2 = useRef();
+  const solidLogoRef = useRef();
 
+  useEffect(() => {
+    setTimeout(() => {
+      const timeline = anime.timeline();
 
-    React.useEffect(() => {
-        gsap.registerPlugin(DrawSVGPlugin)
-        setTimeout(() => {
-            gsap.timeline().to(bgRef.current,{
-                duration: 1,
-                opacity: 1,
-            }).from(outLineRef.current,{
-                drawSVG: 0,
-                duration: 4,
-            }).from(outLineRef2.current,{
-                drawSVG: 0,
-                duration: 4.
-            })
-            gsap.fromTo(solidLogoRef.current,{
-                opacity: 0
-            },
-             {
-                opacity: 0.065,
-                delay: 4,
-                duration: 10,
-            }
-            )
-        }, 4000)
-    }, [])
-    return  <div className='logo-container switch__stroke-color' ref={bgRef}>
+      // Animation for bgRef
+      timeline.add({
+        targets: bgRef.current,
+        opacity: 1,
+        duration: 1, // in milliseconds
+      });
+
+      // Animation for outLineRef
+      timeline.add({
+        targets: outLineRef.current,
+        strokeDashoffset: [anime.setDashoffset, 0],
+        easing: "easeInOutSine",
+        duration: 4, // in milliseconds
+      });
+
+      // Animation for outLineRef2
+      timeline.add({
+        targets: outLineRef2.current,
+        strokeDashoffset: [anime.setDashoffset, 0],
+        easing: "easeInOutSine",
+        duration: 4, // in milliseconds
+      });
+
+      // Animation for solidLogoRef
+      timeline.add({
+        targets: solidLogoRef.current,
+         opacity: 0.065,
+        delay: 4,
+        duration: 10, // in milliseconds
+      });
+    }, 4000);
+  }, []);
+
+  return  <div className="logo-container switch__stroke-color" ref={bgRef}>
         <svg xmlns="http://www.w3.org/2000/svg" 
         ref={solidLogoRef}
             viewBox="0 0 3240 4050"  className='home-logo solid-logo'>
@@ -606,9 +617,9 @@ M1458.501709,2247.039062
 	C1470.549683,2378.235596 1447.730591,2378.235596 1423.748047,2378.235596 
 	C1435.448975,2334.047852 1446.869019,2290.921631 1458.501709,2247.039062 
 z"/>
-        </svg>
+		</svg>
     </div>
-    
+
 }
 
 export default Logo
