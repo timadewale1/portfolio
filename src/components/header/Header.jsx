@@ -12,7 +12,8 @@ const nameArray = ["D", "Ë", ".", "T"]
 const jobArray = [
 "W",
  "e", 
- "b",
+"b",
+ " ",
  "D",
  "e",
  "v",

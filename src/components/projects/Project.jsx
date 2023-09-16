@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-target-blank */
 import React from "react"
 import { Fade } from 'react-awesome-reveal'
 import './projects.scss'
@@ -20,7 +21,7 @@ const Project = (prop) => {
                 <a href={gitHubUrl.url} className="switch__color">
                     {gitHubUrl.icon}
                 </a>
-                <a href={website.url} className="switch__color">
+                <a href={website.url}  className="switch__color">
                     {website.icon}
                 </a>
             </div>

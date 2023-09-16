@@ -57,7 +57,7 @@ const sideBarMenu = [
   //   url: '/blog',
   // },
   {
-    text: 'Contacts',
+    text: 'Contact',
     icon: <RiContactsLine className="link-icon" />,
     url: '/contact',
   },

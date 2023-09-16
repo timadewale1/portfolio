@@ -15,6 +15,7 @@ const ProjectPage = () => {
     }, [])
 
     return ( 
+        <>
         <section className="section__projects section__padding">
             <div className="fake-big">Projects</div>
             <h2 aria-label="My Projects" className="section__projects-title">
@@ -37,6 +38,8 @@ const ProjectPage = () => {
                 })}
             </div>
         </section>
+            </>
+
     )
 } 
 

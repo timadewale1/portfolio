@@ -8,6 +8,7 @@
     position: relative;
     overflow: hidden;
     height: 250px;
+    margin: 5px;
 }
 
 .section__projects-single-projects img {
@@ -90,6 +91,9 @@
 }
 
 @media screen and (max-width: 1900px) {
+    .section__projects-single-projects {
+            height: 280px;
+    }
     .section__projects-wrapper {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
