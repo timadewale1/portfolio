@@ -219,7 +219,7 @@ const Contact = React.memo(() => {
                   </div>
               </button>
                <div>
-                    <img src={whatsapp} alt="" className='image' />
+                    <img src={whatsapp} alt="" className='image switch__border-color' />
                 </div>
      </div>
 </Fade>
