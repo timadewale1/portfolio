@@ -18,10 +18,10 @@ const Project = (prop) => {
                 <span>{stack}</span>
             </div>
             <div className="section__projects-icon">
-                <a href={gitHubUrl.url} className="switch__color">
+                <a href={gitHubUrl.url} target={"_blank"} className="switch__color">
                     {gitHubUrl.icon}
                 </a>
-                <a href={website.url}  className="switch__color">
+                <a href={website.url} target={"_blank"} className="switch__color">
                     {website.icon}
                 </a>
             </div>
