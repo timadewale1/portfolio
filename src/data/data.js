@@ -61,6 +61,7 @@ const sideBarMenu = [
     icon: <RiContactsLine className="link-icon" />,
     url: '/contact',
   },
+
   // {
   //   text: 'Tutorials',
   //   icon: <SiFuturelearn className="link-icon" />,

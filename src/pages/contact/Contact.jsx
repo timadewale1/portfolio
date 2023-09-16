@@ -5,6 +5,7 @@ import Blast from '../../components/BlastAnimation/Blast'
 import Map from '../../components/map/Map'
 import { Reveal } from 'react-awesome-reveal'
 import { Fade } from 'react-awesome-reveal'
+import { whatsapp } from '../../assets/images'
 
 
 // Email js
@@ -205,18 +206,23 @@ const Contact = React.memo(() => {
               <BsPatchCheckFill className="checkCircle" />
             </div>
           </Fade>
-          <Fade left>
-            <button type="submit" className="contact-button submit-button">
-              <div>
-                <span className="bg switch__bg"></span>
-                <span className="base switch__border-color"></span>
-                <span className="text">
-                  Send Message
-                  <RiSendPlane2Fill className="message-deliver" />
-                </span>
-              </div>
-            </button>
-          </Fade>
+            <Fade left>
+              <div className='barcode'>
+  <button type="submit" className="contact-button submit-button">
+   <span className="bg switch__bg"></span>
+<span className="base switch__border-color"></span>
+      <div>
+        <span className="text">
+          Send Message
+    <RiSendPlane2Fill className="message-deliver" />
+                    </span>
+                  </div>
+              </button>
+               <div>
+                    <img src={whatsapp} alt="" className='image' />
+                </div>
+     </div>
+</Fade>
           <Reveal bottom>
             <footer className="footer">
               <p> &copy; copyright All Right Reserved Ade.t - 2023</p>
