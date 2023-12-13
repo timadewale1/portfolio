@@ -93,23 +93,23 @@ export const projects = [
       icon: <TbWorld />,
       url: "https://timadewale1.github.io/Area-Calculator/",
     },
-    imgUrl: [],
+    imgUrl: area,
   },
-  // {
-  //   id: 6,
-  //   name: 'Huddle Landing Page',
-  //   desc: 'A simple landing page website',
-  //   stack: 'React js, SCSS',
-  //   gitHubUrl: {
-  //     icon: <GrGithub />,
-  //     url: 'https://github.com/Almarex-Web-Dev/Huddle-landing-page',
-  //   },
-  //   website: {
-  //     icon: <TbWorld />,
-  //     url: 'https://huddle-website-project.netlify.app/',
-  //   },
-  //   imgUrl: huddle,
-  // },
+  {
+    id: 6,
+    name: "ecommerce app",
+    desc: "A fully functional ecommerce app",
+    stack: "React js, firebase",
+    gitHubUrl: {
+      icon: <GrGithub />,
+      url: "https://github.com/timadewale1/ecommerce",
+    },
+    website: {
+      icon: <TbWorld />,
+      url: "https://adetmart.vercel.app/",
+    },
+    imgUrl: ecommerce,
+  },
   // {
   //   id: 4,
   //   name: 'Hotel Booking Project',
