@@ -11,8 +11,8 @@ import {
   trade,
   resturant,
   pharmacy,
-  area,
   ecommerce,
+  area,
 } from "../../assets/images";
 
 // projects' id, name, stacks, icon and url data
