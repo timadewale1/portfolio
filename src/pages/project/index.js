@@ -112,22 +112,22 @@ export const projects = [
     },
     imgUrl: ecommerce,
   },
-  // {
-  //   id: 4,
-  //   name: 'Hotel Booking Project',
-  //   desc: 'A complicated project that enhanced my skills a lot',
-  //   stack: 'React JS',
-  //   gitHubUrl: {
-  //     icon: <GrGithub />,
-  //     url: 'https://github.com/Almarex-Web-Dev/React-booking-project',
-  //   },
-  //   website: {
-  //     icon: <TbWorld />,
-  //     url: 'https://react-booking-project.netlify.app/',
-  //   },
-  //   imgUrl:
-  //     'https://cdn.dribbble.com/userupload/2512424/file/original-03f9f265f9a4adbd54644841930518a1.png?compress=1&resize=320x240&vertical=top',
-  // },
+  {
+    id: 4,
+    name: "Hotel Booking Project",
+    desc: "A complicated project that enhanced my skills a lot",
+    stack: "React JS",
+    gitHubUrl: {
+      icon: <GrGithub />,
+      url: "https://github.com/Almarex-Web-Dev/React-booking-project",
+    },
+    website: {
+      icon: <TbWorld />,
+      url: "https://react-booking-project.netlify.app/",
+    },
+    imgUrl:
+      "https://cdn.dribbble.com/userupload/2512424/file/original-03f9f265f9a4adbd54644841930518a1.png?compress=1&resize=320x240&vertical=top",
+  },
   // {
   //   id: 2,
   //   name: 'Restaurant Website',
