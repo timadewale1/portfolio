@@ -117,7 +117,10 @@ export const projects = [
     name: "Hotel Booking Project",
     desc: "A complicated project that enhanced my skills a lot",
     stack: "React JS",
-
+    gitHubUrl: {
+      icon: <GrGithub />,
+      url: [],
+    },
     website: {
       icon: <TbWorld />,
       url: "https://react-booking-project.netlify.app/",
@@ -130,7 +133,10 @@ export const projects = [
     name: "Restaurant Website",
     desc: "A Responsive restaurant website design with great UI Effect",
     stack: "React JS",
-
+    gitHubUrl: {
+      icon: <GrGithub />,
+      url: [],
+    },
     website: {
       icon: <TbWorld />,
       url: "https://gericht-restaurant-website.netlify.app/",
