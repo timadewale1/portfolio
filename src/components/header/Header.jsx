@@ -1,55 +1,64 @@
-import React, {useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import Blast from '../BlastAnimation/Blast'
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import Blast from "../BlastAnimation/Blast";
 
-import Logo from '../logoAnimation/Logo'
+import Logo from "../logoAnimation/Logo";
 
-import './header.scss'
+import "./header.scss";
 // import { useState } from 'react'
 
-
-const nameArray = ["D", "Ë", ".", "T"]
+const nameArray = ["D", "Ë", ".", "T"];
 const jobArray = [
-"W",
- "e", 
-"b",
- " ",
- "D",
- "e",
- "v",
- "e",
- "l",
- "o",
- "p", 
- "e", 
- "r",
-]
- 
+  "W",
+  "e",
+  "b",
+  " ",
+  "D",
+  "e",
+  "v",
+  "e",
+  "l",
+  "o",
+  "p",
+  "e",
+  "r",
+];
+
 const Header = () => {
-	const [letterClass, setLetterClass] = useState('text-animate')
+  const [letterClass, setLetterClass] = useState("text-animate");
 
+  useEffect(() => {
+    setTimeout(() => {
+      setLetterClass("text-animate-hover");
+    }, 3000);
+  });
 
-
-	useEffect(() => {
-		setTimeout(() => {
-			setLetterClass('text-animate-hover')
-		}, 3000)
-	})
-
-    return (
-        <section className='section-1 header__container section__padding'>
-            <main className='intro-page'>
-				<h1>
-				<span className={`${letterClass} _12`}>H</span>
-				<span className={`${letterClass} _13`}>i</span>
-				<span className={`${letterClass} _14`}>,</span>
-				 <br />
-				<span className={`${letterClass} _15`}>I</span>
-				<span className={`${letterClass} _16`}>'</span>
-				<span className={`${letterClass} _17`}>m</span> {' '}
-                    <svg xmlns="http://www.w3.org/2000/svg" height='700px' viewBox="0 0 3240 4050" className='sidebar__logo'>
-                        <path height='700px' fill='none' fill-opacity='0.0' className='fill__color lower-logo home-logo' opacity="1.000000" stroke="none"
-                            d="
+  return (
+    <section className="section-1 header__container section__padding">
+      <main className="intro-page">
+        <h1>
+          <span className={`${letterClass} _12`}>H</span>
+          <span className={`${letterClass} _13`}>i</span>
+          <span className={`${letterClass} _14`}>,</span>
+          <br />
+          <span className={`${letterClass} _15`}>I</span>
+          <br />
+          <span className={`${letterClass} _16`}>A</span>
+          <span className={`${letterClass} _17`}>m</span>{" "}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            height="700px"
+            viewBox="0 0 3240 4050"
+            className="sidebar__logo"
+          >
+            <path
+              height="700px"
+              fill="none"
+              fill-opacity="0.0"
+              className="fill__color lower-logo home-logo"
+              opacity="1.000000"
+              stroke="none"
+              d="
 M1532.000000,4052.000000 
 	C1021.333313,4052.000000 511.666656,4052.000000 2.000000,4052.000000 
 	C2.000000,2702.000000 2.000000,1352.000000 2.000000,2.000000 
@@ -138,9 +147,13 @@ M1273.393799,1242.438965
 	C1959.245728,1242.331909 1955.265015,1242.331177 1951.284424,1242.331909 
 	C1729.340942,1242.371582 1507.397461,1242.410278 1285.453979,1242.463257 
 	C1282.126953,1242.464111 1278.799805,1242.643555 1273.393799,1242.438965 
-z"/>
-                        <path fill="#FF1616" opacity="1.000000" stroke="none"
-                            d="
+z"
+            />
+            <path
+              fill="#FF1616"
+              opacity="1.000000"
+              stroke="none"
+              d="
 M1601.552856,2802.627930 
 	C1598.892822,2802.507080 1596.232910,2802.281738 1593.572876,2802.281006 
 	C1504.244507,2802.262207 1414.916138,2802.265137 1325.587769,2802.264893 
@@ -187,9 +200,13 @@ M1458.288940,2247.795166
 	C1604.495361,1644.468872 1590.290283,1718.735107 1572.546875,1792.146362 
 	C1541.116821,1922.185303 1507.531982,2051.703369 1474.869141,2181.444336 
 	C1469.431274,2203.043945 1464.096802,2224.669434 1458.288940,2247.795166 
-z"/>
-                        <path fill="#5CE0E5" opacity="1.000000" stroke="none"
-                            d="
+z"
+            />
+            <path
+              fill="#5CE0E5"
+              opacity="1.000000"
+              stroke="none"
+              d="
 M1274.433228,1242.589355 
 	C1188.189453,1511.367188 1100.913696,1779.996948 1013.621338,2048.621582 
 	C894.144653,2416.286621 774.655396,2783.947510 655.176941,3151.612061 
@@ -211,9 +228,13 @@ M1274.433228,1242.589355
 	C931.242493,1271.147217 935.790283,1257.259521 940.412109,1243.087769 
 	C942.601990,1242.812500 944.514832,1242.361572 946.427612,1242.361694 
 	C1055.416382,1242.363770 1164.405029,1242.403198 1274.433228,1242.589355 
-z"/>
-                        <path fill="#FE1616" opacity="1.000000" stroke="none"
-                            d="
+z"
+            />
+            <path
+              fill="#FE1616"
+              opacity="1.000000"
+              stroke="none"
+              d="
 M1331.961182,1054.335205 
 	C1327.328247,1070.216187 1322.695312,1086.097046 1317.774658,1102.964111 
 	C1240.744141,1102.964111 1162.469971,1102.964111 1083.380493,1102.964111 
@@ -246,9 +267,13 @@ M1331.961182,1054.335205
 	C1391.601196,975.932068 1376.921997,982.908203 1364.458984,994.906494 
 	C1351.236938,1007.635559 1342.617310,1023.332520 1335.953491,1040.178345 
 	C1334.159302,1044.713989 1333.267334,1049.606567 1331.961182,1054.335205 
-z"/>
-                        <path fill="#5CE0E5" opacity="1.000000" stroke="none"
-                            d="
+z"
+            />
+            <path
+              fill="#5CE0E5"
+              opacity="1.000000"
+              stroke="none"
+              d="
 M1246.342896,698.410034 
 	C1246.114990,699.634705 1245.232788,700.681213 1244.136597,701.402283 
 	C1200.953735,729.810547 1170.506714,769.017273 1147.766602,814.806641 
@@ -267,9 +292,13 @@ M1246.342896,698.410034
 	C1014.040466,660.075684 1038.686768,657.437256 1063.634155,656.176025 
 	C1110.034424,653.830200 1153.962158,664.356445 1197.061523,679.911255 
 	C1213.307007,685.774414 1229.417114,692.012756 1246.342896,698.410034 
-z"/>
-                        <path fill="#5CE0E5" opacity="1.000000" stroke="none"
-                            d="
+z"
+            />
+            <path
+              fill="#5CE0E5"
+              opacity="1.000000"
+              stroke="none"
+              d="
 M1601.755005,2803.362305 
 	C1604.537720,2802.474365 1607.522583,2802.187256 1610.507446,2802.186523 
 	C1715.785156,2802.163574 1821.062866,2802.166992 1926.340576,2802.166992 
@@ -281,9 +310,13 @@ M1601.755005,2803.362305
 	C1915.606201,3160.335205 1810.040039,3160.331787 1704.473999,3160.332031 
 	C1701.829956,3160.332031 1699.185913,3160.332031 1695.317627,3160.332031 
 	C1664.166748,3041.469482 1633.061890,2922.782959 1601.755005,2803.362305 
-z"/>
-                        <path fill="#5DE0E5" opacity="1.000000" stroke="none"
-                            d="
+z"
+            />
+            <path
+              fill="#5DE0E5"
+              opacity="1.000000"
+              stroke="none"
+              d="
 M1332.771484,1054.501831 
 	C1333.267334,1049.606567 1334.159302,1044.713989 1335.953491,1040.178345 
 	C1342.617310,1023.332520 1351.236938,1007.635559 1364.458984,994.906494 
@@ -294,9 +327,13 @@ M1332.771484,1054.501831
 	C1649.501343,1078.135010 1617.690063,1090.350464 1583.569458,1096.044067 
 	C1521.669922,1106.373047 1461.148438,1099.718384 1402.045410,1079.204346 
 	C1379.144409,1071.255615 1356.398438,1062.860352 1332.771484,1054.501831 
-z"/>
-                        <path fill="#5DE0E5" opacity="1.000000" stroke="none"
-                            d="
+z"
+            />
+            <path
+              fill="#5DE0E5"
+              opacity="1.000000"
+              stroke="none"
+              d="
 M1833.975098,779.202820 
 	C1819.101685,781.438477 1804.862549,777.761780 1790.570679,774.907898 
 	C1765.364502,769.874512 1741.223267,761.228088 1717.321289,752.042358 
@@ -304,9 +341,13 @@ M1833.975098,779.202820
 	C1602.129272,687.774048 1606.708984,671.204590 1611.427490,654.132996 
 	C1690.318359,654.132996 1769.465576,654.132996 1848.983032,654.132996 
 	C1846.717041,696.131531 1841.526611,737.387817 1833.975098,779.202820 
-z"/>
-                        <path fill="#5DE0E5" opacity="1.000000" stroke="none"
-                            d="
+z"
+            />
+            <path
+              fill="#5DE0E5"
+              opacity="1.000000"
+              stroke="none"
+              d="
 M1458.714600,2246.282959 
 	C1464.096802,2224.669434 1469.431274,2203.043945 1474.869141,2181.444336 
 	C1507.531982,2051.703369 1541.116821,1922.185303 1572.546875,1792.146362 
@@ -321,43 +362,46 @@ M1458.714600,2246.282959
 	C1498.282959,2379.167969 1496.621216,2378.991211 1494.250977,2377.786621 
 	C1486.107300,2348.164795 1478.756348,2319.631104 1471.202515,2291.150879 
 	C1467.222778,2276.146240 1462.888672,2261.235840 1458.714600,2246.282959 
-z"/>
-                        <path fill="#000000" opacity="1.000000" stroke="none"
-                            d="
+z"
+            />
+            <path
+              fill="#000000"
+              opacity="1.000000"
+              stroke="none"
+              d="
 M1458.501709,2247.039062 
 	C1462.888672,2261.235840 1467.222778,2276.146240 1471.202515,2291.150879 
 	C1478.756348,2319.631104 1486.107300,2348.164795 1493.455566,2377.456055 
 	C1470.549683,2378.235596 1447.730591,2378.235596 1423.748047,2378.235596 
 	C1435.448975,2334.047852 1446.869019,2290.921631 1458.501709,2247.039062 
-z"/>
-                    </svg>
-					<Blast
-					 letterClass={letterClass} 
-					arrayStr={nameArray} 
-					indexLetter={15}
-					/>{' '}
-					<br />
-                    <Blast
-					 letterClass={letterClass} 
-					 arrayStr={jobArray} 
-					 indexLetter={22}
-					  />
-					</h1>
-                <p className='text-desc'>
-                    WEB DEVELOPER
-                </p>
+z"
+            />
+          </svg>
+          <Blast
+            letterClass={letterClass}
+            arrayStr={nameArray}
+            indexLetter={15}
+          />{" "}
+          <br />
+          {/* <Blast
+            letterClass={letterClass}
+            arrayStr={jobArray}
+            indexLetter={22}
+          /> */}
+        </h1>
+        <p className="text-desc">WEB DEVELOPER</p>
 
-                <Link to={"/contact"} className='contact-button'>
-                    <div>
-                        <span className='bg switch__bg'></span>
-                        <span className='base switch__border-color'></span>
-                        <span className='text'>Contact me</span>
-                    </div>
-                </Link>
-				<Logo />
-            </main>
-        </section>
-        )
-}
+        <Link to={"/contact"} className="contact-button">
+          <div>
+            <span className="bg switch__bg"></span>
+            <span className="base switch__border-color"></span>
+            <span className="text">Contact me</span>
+          </div>
+        </Link>
+        <Logo />
+      </main>
+    </section>
+  );
+};
 
-export default Header
+export default Header;

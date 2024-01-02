@@ -1,18 +1,18 @@
 /* eslint-disable */
-import React from 'react'
+import React from "react";
 
 // react-icons
-import { FiGrid, FiLinkedin, FiYoutube, FiFigma } from 'react-icons/fi'
-import { ImBlogger } from 'react-icons/im'
-import { VscProject } from 'react-icons/vsc'
+import { FiGrid, FiLinkedin, FiYoutube, FiFigma } from "react-icons/fi";
+import { ImBlogger } from "react-icons/im";
+import { VscProject } from "react-icons/vsc";
 import {
   BsBootstrapFill,
   BsPersonLinesFill,
   BsGithub,
   BsGoogle,
-} from 'react-icons/bs'
+} from "react-icons/bs";
 
-import { RiContactsLine, RiReactjsLine } from 'react-icons/ri'
+import { RiContactsLine, RiReactjsLine } from "react-icons/ri";
 import {
   SiFuturelearn,
   SiSass,
@@ -21,30 +21,30 @@ import {
   SiRedux,
   SiNextdotjs,
   SiWordpress,
-} from 'react-icons/si'
+} from "react-icons/si";
 
-import { GrGithub, GrTwitter, GrInstagram } from 'react-icons/gr'
-import { AiFillHtml5 } from 'react-icons/ai'
-import { DiCss3, DiMongodb } from 'react-icons/di'
-import { IoLogoJavascript, IoLogoGameControllerB } from 'react-icons/io'
-import { FaNodeJs, FaGit, FaPython } from 'react-icons/fa'
+import { GrGithub, GrTwitter, GrInstagram } from "react-icons/gr";
+import { AiFillHtml5 } from "react-icons/ai";
+import { DiCss3, DiMongodb } from "react-icons/di";
+import { IoLogoJavascript, IoLogoGameControllerB } from "react-icons/io";
+import { FaNodeJs, FaGit, FaPython } from "react-icons/fa";
 
 // sidebar menu functionality
 const sideBarMenu = [
   {
-    text: 'Home',
+    text: "Home",
     icon: <FiGrid className="link-icon" />,
-    url: '/',
+    url: "/",
   },
   {
-    text: 'About',
+    text: "About",
     icon: <BsPersonLinesFill className="link-icon" />,
-    url: '/about',
+    url: "/about",
   },
   {
-    text: 'Projects',
+    text: "Projects",
     icon: <VscProject className="link-icon" />,
-    url: '/project',
+    url: "/project",
   },
   // {
   //   text: 'Blog',
@@ -57,9 +57,9 @@ const sideBarMenu = [
   //   url: '/blog',
   // },
   {
-    text: 'Contact',
+    text: "Contact",
     icon: <RiContactsLine className="link-icon" />,
-    url: '/contact',
+    url: "/contact",
   },
 
   // {
@@ -72,104 +72,88 @@ const sideBarMenu = [
   //   icon: <IoLogoGameControllerB className="link-icon" />,
   //   url: '/gaming',
   // },
-]
+];
 // social media icons
 const socialIcons = [
   {
     icon: <GrGithub className="icon switch__color" />,
-    url: 'https://github.com/timadewale1 ',
+    url: "https://github.com/timadewale1 ",
   },
   {
     icon: <FiLinkedin className="icon switch__color" />,
-    url: 'https://www.linkedin.com/in/timilehin-adewale-7911b8189',
+    url: "https://www.linkedin.com/in/timilehin-adewale-7911b8189",
   },
-]
+];
 // skills card
 const skillSet = [
   {
     icon: <AiFillHtml5 className="skills-icon switch__color" />,
-    spanText: 'HTML',
-    url: 'https://developer.mozilla.org/en-US/docs/Web/HTML',
+    spanText: "HTML",
+    url: "https://developer.mozilla.org/en-US/docs/Web/HTML",
   },
   {
     icon: <DiCss3 className="skills-icon switch__color" />,
-    spanText: 'CSS',
-    url: 'https://developer.mozilla.org/en-US/docs/Web/CSS',
+    spanText: "CSS",
+    url: "https://developer.mozilla.org/en-US/docs/Web/CSS",
   },
   {
     icon: <IoLogoJavascript className="skills-icon switch__color" />,
-    spanText: 'JAVASCRIPT',
-    url: 'https://developer.mozilla.org/en-US/docs/Learn/JavaScript',
+    spanText: "JAVASCRIPT",
+    url: "https://developer.mozilla.org/en-US/docs/Learn/JavaScript",
   },
   {
     icon: <SiSass className="skills-icon switch__color" />,
-    spanText: 'SASS',
-    url: '',
+    spanText: "SASS",
+    url: "",
   },
 
   {
     icon: <BsBootstrapFill className="skills-icon switch__color" />,
-    spanText: 'BOOTSTRAP',
-    url: '',
+    spanText: "BOOTSTRAP",
+    url: "",
   },
 
   {
-    icon: <SiJquery className="skills-icon switch__color" />,
-    spanText: 'JQUERY',
-    url: '',
-  },
-  {
     icon: <FaGit className="skills-icon switch__color" />,
-    spanText: 'GIT',
+    spanText: "GIT",
     url:
-      'https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/GitHub',
+      "https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/GitHub",
   },
   {
     icon: <BsGithub className="skills-icon switch__color" />,
-    spanText: 'GITHUB',
+    spanText: "GITHUB",
     url:
-      'https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/GitHub',
+      "https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/GitHub",
   },
   {
     icon: <RiReactjsLine className="skills-icon switch__color" />,
-    spanText: 'REACT JS',
+    spanText: "REACT JS",
     url:
-      'https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Client-side_JavaScript_frameworks/React_getting_started',
+      "https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/Client-side_JavaScript_frameworks/React_getting_started",
   },
 
   {
     icon: <FaNodeJs className="skills-icon switch__color" />,
-    spanText: 'NODE',
+    spanText: "NODE",
     url:
-      'https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs',
+      "https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs",
   },
 
   {
-    icon: <FaPython className="skills-icon switch__color" />,
-    spanText: 'PYTHON',
-    url: 'https://developer.mozilla.org/en-US/docs/Glossary/Python',
-  },
-  {
     icon: <SiNextdotjs className="skills-icon switch__color" />,
-    spanText: 'NEXT JS',
-    url:
-      'https://nextjs.org/docs',
+    spanText: "NEXT JS",
+    url: "https://nextjs.org/docs",
   },
   {
     icon: <SiWordpress className="skills-icon switch__color" />,
-    spanText: 'WORDPRESS',
-    url: 'https://wordpress.org/',
+    spanText: "WORDPRESS",
+    url: "https://wordpress.org/",
   },
   {
     icon: <FiFigma className="skills-icon switch__color" />,
-    spanText: 'Figma',
-    url: 'https://figma.com',
+    spanText: "Figma",
+    url: "https://figma.com",
   },
-  {
-    icon: <BsGoogle className="skills-icon switch__color" />,
-    spanText: 'Googling',
-    url: 'https://google.com',
-  },
-]
+];
 
-export { sideBarMenu, socialIcons, skillSet }
+export { sideBarMenu, socialIcons, skillSet };
