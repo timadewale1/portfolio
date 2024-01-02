@@ -133,13 +133,6 @@ const skillSet = [
   },
 
   {
-    icon: <FaNodeJs className="skills-icon switch__color" />,
-    spanText: "NODE",
-    url:
-      "https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs",
-  },
-
-  {
     icon: <SiNextdotjs className="skills-icon switch__color" />,
     spanText: "NEXT JS",
     url: "https://nextjs.org/docs",
