@@ -42,9 +42,9 @@ const Header = () => {
           <span className={`${letterClass} _14`}>,</span>
           <br />
           <span className={`${letterClass} _15`}>I</span>
-          <br />
-          <span className={`${letterClass} _16`}>A</span>
-          <span className={`${letterClass} _17`}>m</span>{" "}
+          <span className={`${letterClass} _16`}></span>
+          <span className={`${letterClass} _17`}>A</span>
+          <span className={`${letterClass} _18`}>m</span>{" "}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             height="700px"
