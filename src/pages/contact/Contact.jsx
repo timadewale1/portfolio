@@ -1,149 +1,153 @@
-import React, { useState, useRef } from 'react'
-import { BsExclamationLg, BsPatchCheckFill } from 'react-icons/bs'
-import { RiSendPlane2Fill } from 'react-icons/ri'
-import Blast from '../../components/BlastAnimation/Blast'
-import Map from '../../components/map/Map'
-import { Reveal } from 'react-awesome-reveal'
-import { Fade } from 'react-awesome-reveal'
-import { whatsapp } from '../../assets/images'
-
+import React, { useState, useRef } from "react";
+import { BsExclamationLg, BsPatchCheckFill } from "react-icons/bs";
+import { RiSendPlane2Fill } from "react-icons/ri";
+import Blast from "../../components/BlastAnimation/Blast";
+import Map from "../../components/map/Map";
+import { Reveal } from "react-awesome-reveal";
+import { Fade } from "react-awesome-reveal";
+import { whatsapp } from "../../assets/images";
 
 // Email js
-import emailjs from '@emailjs/browser'
-import './contact.scss'
+import emailjs from "@emailjs/browser";
+import "./contact.scss";
 
 const Contact = React.memo(() => {
-  const [letterClass, setLetterClass] = React.useState('text-animate')
+  const [letterClass, setLetterClass] = React.useState("text-animate");
   React.useEffect(() => {
     const interval = setTimeout(() => {
-      setLetterClass('text-animate-hover')
-    }, 3000)
+      setLetterClass("text-animate-hover");
+    }, 3000);
 
     return () => {
-      clearInterval(interval)
-    }
-  }, [])
+      clearInterval(interval);
+    };
+  }, []);
 
   const [validInpt, setValidInpt] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: '',
-  })
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
 
   const handleChange = (e) => {
-    const { name, value } = e.target
+    const { name, value } = e.target;
     setValidInpt((preValue) => {
-      return { ...preValue, [name]: value }
-    })
-  }
+      return { ...preValue, [name]: value };
+    });
+  };
 
   // select all the input with useRef Hook
-  const emailRef = useRef(null)
-  const TextAreaRef = useRef(null)
-  const MessageRef = useRef(null)
+  const emailRef = useRef(null);
+  const TextAreaRef = useRef(null);
+  const MessageRef = useRef(null);
 
-  const form = useRef(null)
+  const form = useRef(null);
 
   // show Message function
   const showMessage = (message, updateColor) => {
-    const divContent = document.createElement('div')
-    divContent.textContent = message
-    divContent.classList.add('div-content')
-    MessageRef.current.prepend(divContent)
-    divContent.style.backgroundColor = updateColor
+    const divContent = document.createElement("div");
+    divContent.textContent = message;
+    divContent.classList.add("div-content");
+    MessageRef.current.prepend(divContent);
+    divContent.style.backgroundColor = updateColor;
 
-    MessageRef.current.style.transform = `translateX(${'0'}%)`
-    MessageRef.current.style.visibility = 'visible'
+    MessageRef.current.style.transform = `translateX(${"0"}%)`;
+    MessageRef.current.style.visibility = "visible";
     setTimeout(() => {
-      divContent.classList.add('hide')
-      divContent.addEventListener('transitionend', () => {
-        divContent.remove()
-      })
-      divContent.style.transform = `translateX(${'0'}%)`
+      divContent.classList.add("hide");
+      divContent.addEventListener("transitionend", () => {
+        divContent.remove();
+      });
+      divContent.style.transform = `translateX(${"0"}%)`;
       // MessageRef.current.style.visibility = 'visible'
-      emailRef.current.parentElement.classList.remove('error')
-      TextAreaRef.current.parentElement.classList.remove('error')
-      emailRef.current.parentElement.classList.remove('success')
-      TextAreaRef.current.parentElement.classList.remove('success')
-    }, 5000)
-  }
+      emailRef.current.parentElement.classList.remove("error");
+      TextAreaRef.current.parentElement.classList.remove("error");
+      emailRef.current.parentElement.classList.remove("success");
+      TextAreaRef.current.parentElement.classList.remove("success");
+    }, 5000);
+  };
   // Error function
   const setError = (inputRef) => {
-    if (inputRef.current.parentElement.classList.contains('success')) {
-      inputRef.current.parentElement.classList.remove('success')
+    if (inputRef.current.parentElement.classList.contains("success")) {
+      inputRef.current.parentElement.classList.remove("success");
     } else {
-      inputRef.current.parentElement.classList.add('error')
+      inputRef.current.parentElement.classList.add("error");
     }
-  }
+  };
 
   // success Function
   const setSuccess = (inputRef) => {
-    if (inputRef.current.parentElement.classList.contains('error')) {
-      inputRef.current.parentElement.classList.remove('error')
+    if (inputRef.current.parentElement.classList.contains("error")) {
+      inputRef.current.parentElement.classList.remove("error");
     } else {
-      inputRef.current.parentElement.classList.add('success')
+      inputRef.current.parentElement.classList.add("success");
     }
-  }
+  };
 
   const onSubmit = (e) => {
-    e.preventDefault()
-    const { email, message } = validInpt
+    e.preventDefault();
+    const { email, message } = validInpt;
     // const pattern = /^[^]+@[^]+\.[a-z]{2,3}$/
-    const pattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i
+    const pattern = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i;
     if (!email && !message) {
-      setError(emailRef)
-      setError(TextAreaRef)
-      showMessage('Pls! fill in the required inputs')
+      setError(emailRef);
+      setError(TextAreaRef);
+      showMessage("Pls! fill in the required inputs");
     } else if (!email && message) {
-      setError(emailRef)
+      setError(emailRef);
 
-      showMessage("Ooops! Email can't be empty")
+      showMessage("Ooops! Email can't be empty");
     } else if (!email.match(pattern)) {
-      setError(emailRef)
-      showMessage('Ooops! Email not valid')
+      setError(emailRef);
+      showMessage("Ooops! Email not valid");
     } else if (!message && email.match(pattern)) {
-      setError(TextAreaRef)
+      setError(TextAreaRef);
 
-      showMessage('Leave a message pls!')
+      showMessage("Leave a message pls!");
     } else if (email && !message) {
-      setError(TextAreaRef)
-      showMessage('por favor! enviar un mensaje')
-      
+      setError(TextAreaRef);
+      showMessage("por favor! enviar un mensaje");
     } else if (email && message) {
-             emailjs.send('service_i2egx9v', "template_779e39k", form.current, "27nO3py507aQHesaK");
-      setSuccess(emailRef)
-      setSuccess(TextAreaRef)
-      showMessage('Message sent successfully', 'green')
+      emailjs.send(
+        "service_i2egx9v",
+        "template_779e39k",
+        form.current,
+        "27nO3py507aQHesaK"
+      );
+      setSuccess(emailRef);
+      setSuccess(TextAreaRef);
+      showMessage("Message sent successfully", "green");
 
       setValidInpt({
-        name: '',
-        email: '',
-        subject: '',
-        message: '',
-      })
+        name: "",
+        email: "",
+        subject: "",
+        message: "",
+      });
     }
-  }
-    return (
-        <>
-            <section className='contact-section'>
-                <div className='fake-big'>@</div>
-                <form ref={form} className="contact-form" onSubmit={onSubmit}>
-                    <div>
-                        <h2 className='contact__heading'>
-                            <Blast 
-                            letterClass={letterClass} 
-                            arrayStr={['C', 'o', 'n', 't', 'a', 'c', 't', '', 'm', 'e']} 
-                            indexLetter={12}
-                            />
-                        </h2>
-                        <Fade bottom>
-                            <p>
-                                I'm available for freelancing, hit me up if you have any project to work on.
-                            </p>
-                        </Fade>
-                    </div>
-                    <Fade bottom>
+  };
+  return (
+    <>
+      <section className="contact-section">
+        <div className="fake-big">@</div>
+        <form ref={form} className="contact-form" onSubmit={onSubmit}>
+          <div>
+            <h2 className="contact__heading">
+              <Blast
+                letterClass={letterClass}
+                arrayStr={["C", "o", "n", "t", "a", "c", "t", "", "m", "e"]}
+                indexLetter={12}
+              />
+            </h2>
+            <Fade bottom>
+              <p>
+                I'm available for freelancing, hit me up if you have any project
+                to work on.
+              </p>
+            </Fade>
+          </div>
+          <Fade bottom>
             <div className="input-wrapper">
               <div className="form-input-group">
                 <input
@@ -206,26 +210,31 @@ const Contact = React.memo(() => {
               <BsPatchCheckFill className="checkCircle" />
             </div>
           </Fade>
-            <Fade left>
-              <div className='barcode'>
-  <button type="submit" className="contact-button submit-button">
-   <span className="bg switch__bg"></span>
-<span className="base switch__border-color"></span>
-      <div>
-        <span className="text">
-          Send Message
-    <RiSendPlane2Fill className="message-deliver" />
-                    </span>
-                  </div>
-              </button>
-               <div>
-                    <img src={whatsapp} alt="" className='image switch__border-color' />
+          <Fade left>
+            <div className="barcode">
+              <button type="submit" className="contact-button submit-button">
+                <span className="bg switch__bg"></span>
+                <span className="base switch__border-color"></span>
+                <div>
+                  <span className="text">
+                    Send Message
+                    <RiSendPlane2Fill className="message-deliver" />
+                  </span>
                 </div>
-     </div>
-</Fade>
+              </button>
+              <div>
+                <img
+                  src={whatsapp}
+                  alt=""
+                  className="image switch__border-color"
+                />
+              </div>
+            </div>
+          </Fade>
           <Reveal bottom>
             <footer className="footer">
               <p> &copy; copyright All Right Reserved Ade.t - 2023</p>
+              <p> &copy; special credit to Almarex web dev for tutorials</p>
             </footer>
           </Reveal>
         </form>
@@ -235,7 +244,7 @@ const Contact = React.memo(() => {
         <div ref={MessageRef} className="message"></div>
       </section>
     </>
-  )
-})
+  );
+});
 
-export default Contact
+export default Contact;
