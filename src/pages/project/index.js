@@ -13,6 +13,7 @@ import {
   pharmacy,
   ecommerce,
   area,
+  gemini,
 } from "../../assets/images";
 
 // projects' id, name, stacks, icon and url data
@@ -114,19 +115,18 @@ export const projects = [
   },
   {
     id: 4,
-    name: "Hotel Booking Project",
-    desc: "A complicated project that enhanced my skills a lot",
+    name: "Gemini AI clone",
+    desc: "A fully functional clone of the google gemini AI",
     stack: "React JS",
     gitHubUrl: {
       icon: <GrGithub />,
-      url: [],
+      url: "https://github.com/timadewale1/project-gemini",
     },
     website: {
       icon: <TbWorld />,
-      url: "https://react-booking-project.netlify.app/",
+      url: "https://adetgemini.vercel.app/",
     },
-    imgUrl:
-      "https://cdn.dribbble.com/userupload/2512424/file/original-03f9f265f9a4adbd54644841930518a1.png?compress=1&resize=320x240&vertical=top",
+    imgUrl: gemini,
   },
   {
     id: 2,
