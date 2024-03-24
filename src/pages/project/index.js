@@ -14,6 +14,7 @@ import {
   ecommerce,
   area,
   gemini,
+  adet,
 } from "../../assets/images";
 
 // projects' id, name, stacks, icon and url data
@@ -142,5 +143,20 @@ export const projects = [
       url: "https://gericht-restaurant-website.netlify.app/",
     },
     imgUrl: gericht,
+  },
+  {
+    id: 2,
+    name: "Tic Tac Toe",
+    desc: "very simple tic tac toe game ",
+    stack: "React JS",
+    gitHubUrl: {
+      icon: <GrGithub />,
+      url: "https://github.com/timadewale1/tictac",
+    },
+    website: {
+      icon: <TbWorld />,
+      url: "https://adettac.vercel.app/",
+    },
+    imgUrl: adet,
   },
 ];

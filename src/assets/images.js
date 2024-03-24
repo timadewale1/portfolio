@@ -11,3 +11,4 @@ export { default as restCOuntry } from "../assets/images/countryAPI.png";
 export { default as ecommerce } from "../assets/images/ecommerce.png";
 export { default as area } from "../assets/images/area.png";
 export { default as gemini } from "../assets/images/gemini.png";
+export { default as adet } from "../assets/images/adet.png";
