@@ -14,7 +14,7 @@ import {
   ecommerce,
   area,
   gemini,
-  adet,
+  tictac,
 } from "../../assets/images";
 
 // projects' id, name, stacks, icon and url data
@@ -157,6 +157,6 @@ export const projects = [
       icon: <TbWorld />,
       url: "https://adettac.vercel.app/",
     },
-    imgUrl: adet,
+    imgUrl: tictac,
   },
 ];
