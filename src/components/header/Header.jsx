@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Blast from "../BlastAnimation/Blast";
+import { me } from "../../assets/images";
 
 import Logo from "../logoAnimation/Logo";
 

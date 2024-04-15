@@ -120,12 +120,6 @@ const skillSet = [
       "https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/GitHub",
   },
   {
-    icon: <BsGithub className="skills-icon switch__color" />,
-    spanText: "GITHUB",
-    url:
-      "https://developer.mozilla.org/en-US/docs/Learn/Tools_and_testing/GitHub",
-  },
-  {
     icon: <RiReactjsLine className="skills-icon switch__color" />,
     spanText: "REACT JS",
     url:
@@ -136,16 +130,6 @@ const skillSet = [
     icon: <SiNextdotjs className="skills-icon switch__color" />,
     spanText: "NEXT JS",
     url: "https://nextjs.org/docs",
-  },
-  {
-    icon: <SiWordpress className="skills-icon switch__color" />,
-    spanText: "WORDPRESS",
-    url: "https://wordpress.org/",
-  },
-  {
-    icon: <FiFigma className="skills-icon switch__color" />,
-    spanText: "Figma",
-    url: "https://figma.com",
   },
 ];
 

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import myCV from "../../assets/images/Timilehin.pdf";
+import myCV from "../../assets/images/Adewale.pdf";
 import { Reveal } from "react-awesome-reveal";
 import { Fade } from "react-awesome-reveal";
 
@@ -46,21 +46,12 @@ const About = () => {
             </h2>
             <Fade left>
               <p>
-                My programming journey commenced in October 2021 when I delved
-                into NFTs and the Metaplex Solana NFT standard. This initial
-                curiosity sparked a methodical approach to learning programming,
-                covering React, Next.js, JavaScript, Python, Django, HTML, CSS,
-                Vanilla.js, and a touch of ethical hacking.
-              </p>
-            </Fade>
-            <Fade bottom>
-              <p>
-                Recognizing the need for a focused path, I narrowed my scope to
-                frontend development. Leveraging platforms like Coursera,
-                GitHub, Stack Overflow, YouTube, and various coding sites, I've
-                diligently gathered knowledge in web development. Continuous
-                learning remains my ethos as I strive to enhance my skills in
-                this dynamic field.
+                Passionate frontend web developer with over 2 years of
+                experience, specializing in React, JavaScript, TypeScript, HTML,
+                and CSS. Proficient in leveraging Firebase and other
+                cutting-edge web technologies to create seamless user
+                experiences. Constantly exploring new avenues in web development
+                to craft innovative solutions and enhance user engagement.
               </p>
             </Fade>
             <Fade left>

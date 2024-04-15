@@ -12,3 +12,4 @@ export { default as ecommerce } from "../assets/images/ecommerce.png";
 export { default as area } from "../assets/images/area.png";
 export { default as gemini } from "../assets/images/gemini.png";
 export { default as tictac } from "../assets/images/tictac.png";
+export { default as me } from "../assets/images/me.jpg";
