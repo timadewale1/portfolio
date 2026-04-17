@@ -1,14 +1,14 @@
-import React, {
-  Suspense,
-  lazy,
-  useEffect,
-  useLayoutEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import React, { Suspense, lazy, useEffect, useLayoutEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
-import { FiArrowRight, FiGithub, FiLinkedin, FiMail, FiPlay } from "react-icons/fi";
+import {
+  FiArrowRight,
+  FiGithub,
+  FiLinkedin,
+  FiMail,
+  FiNavigation,
+  FiPlay,
+  FiZap,
+} from "react-icons/fi";
 
 import { me } from "../../assets/images";
 import logoMark from "../../assets/logo.svg";
@@ -17,81 +17,46 @@ import "./home.scss";
 
 const BrandSpline = lazy(() => import("../../components/BrandSpline/BrandSpline"));
 
-const heroWords = [
-  "Frontend developer",
-  "Creative technologist",
-  "Story-driven builder",
-];
+const heroSentence = "We design portfolio experiences that move through the story, not just sit on the screen.";
 
 const storyMoments = [
   {
     index: "01",
-    title: "Concept",
-    text: "We open with a slow-burn intro, strong typography, and a living 3D backdrop that reacts to scroll instead of sitting still.",
+    title: "Sunrise Setup",
+    text: "A warm horizon, branded convoy forms, and a sticky hero establish the cinematic tone before the page even begins to explain itself.",
   },
   {
     index: "02",
-    title: "Progression",
-    text: "As visitors move, the camera glides through the scene while the content stages your strengths, tools, and selected work with intent.",
+    title: "Blueprint Merge",
+    text: "Wireframe trucks and structures phase into solid surfaces as the scroll advances, making the build feel engineered in real time.",
   },
   {
     index: "03",
-    title: "Conversion",
-    text: "The final act shifts from showing taste to inviting action, turning the portfolio into a memorable pitch instead of a static resume.",
+    title: "Arrival",
+    text: "The camera glides through the yard, text reveals with intent, and the rest of the portfolio lands like the next act of the same film.",
   },
 ];
 
 const capabilities = [
-  "Scroll-linked Three.js environment",
-  "GSAP ScrollTrigger scene choreography",
-  "Typewriter headline reveal",
-  "Cinematic camera movement",
-  "Spline-powered interactive vignette",
-  "Responsive section transitions",
+  "Scroll-synced convoy scene in Three.js",
+  "Wireframe-to-solid material progression",
+  "Cinematic camera moves with GSAP ScrollTrigger",
+  "Typed copy reveal driven by scroll position",
+  "Spline support for interactive 3D set pieces",
+  "Branded sunset palette around your ADE.T mark",
 ];
 
-function useTypewriter(words, typingSpeed = 90, pause = 1400) {
-  const [wordIndex, setWordIndex] = useState(0);
-  const [display, setDisplay] = useState("");
-  const [isDeleting, setIsDeleting] = useState(false);
-
-  useEffect(() => {
-    const activeWord = words[wordIndex % words.length];
-    const nextValue = isDeleting
-      ? activeWord.slice(0, display.length - 1)
-      : activeWord.slice(0, display.length + 1);
-
-    const timeout = setTimeout(
-      () => {
-        setDisplay(nextValue);
-
-        if (!isDeleting && nextValue === activeWord) {
-          setTimeout(() => setIsDeleting(true), pause);
-          return;
-        }
-
-        if (isDeleting && nextValue === "") {
-          setIsDeleting(false);
-          setWordIndex((current) => (current + 1) % words.length);
-        }
-      },
-      isDeleting ? typingSpeed / 2 : typingSpeed,
-    );
-
-    return () => clearTimeout(timeout);
-  }, [display, isDeleting, pause, typingSpeed, wordIndex, words]);
-
-  return display;
-}
+const routeStates = ["Dawn Run", "Merge Phase", "Convoy Pass", "Arrival Frame"];
 
 const Home = () => {
   const homeRef = useRef(null);
   const heroRef = useRef(null);
   const canvasRef = useRef(null);
   const splineSectionRef = useRef(null);
-  const headline = useTypewriter(heroWords);
   const featuredProjects = useMemo(() => projects.slice(0, 4), []);
   const [canLoadSpline, setCanLoadSpline] = useState(false);
+  const [typedMessage, setTypedMessage] = useState(heroSentence.slice(0, 1));
+  const [routeState, setRouteState] = useState(routeStates[0]);
 
   useLayoutEffect(() => {
     if (!homeRef.current || !canvasRef.current) {
@@ -99,6 +64,7 @@ const Home = () => {
     }
 
     let cleanup = () => {};
+    let cancelled = false;
 
     (async () => {
       const [{ default: gsap }, { ScrollTrigger }, THREE] = await Promise.all([
@@ -107,7 +73,7 @@ const Home = () => {
         import("three"),
       ]);
 
-      if (!homeRef.current || !canvasRef.current) {
+      if (cancelled || !homeRef.current || !canvasRef.current) {
         return;
       }
 
@@ -116,8 +82,10 @@ const Home = () => {
       const canvas = canvasRef.current;
       const parent = canvas.parentElement;
       const scene = new THREE.Scene();
-      const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 100);
-      camera.position.set(0, 0.2, 7.5);
+      scene.fog = new THREE.FogExp2("#170d0a", 0.045);
+
+      const camera = new THREE.PerspectiveCamera(34, 1, 0.1, 150);
+      camera.position.set(-9.5, 2.4, 16.5);
 
       const renderer = new THREE.WebGLRenderer({
         canvas,
@@ -125,7 +93,6 @@ const Home = () => {
         alpha: true,
         powerPreference: "high-performance",
       });
-
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.6));
 
       const resizeRenderer = () => {
@@ -135,122 +102,308 @@ const Home = () => {
         camera.aspect = width / height;
         camera.updateProjectionMatrix();
       };
-
       resizeRenderer();
 
-      scene.fog = new THREE.FogExp2("#090909", 0.08);
+      const ambientLight = new THREE.AmbientLight("#ffe6cf", 1.15);
+      const sunLight = new THREE.DirectionalLight("#ffb066", 3.6);
+      sunLight.position.set(12, 9, 6);
+      const rimLight = new THREE.PointLight("#5ce0e5", 5.5, 40, 2);
+      rimLight.position.set(-10, 2, -5);
+      const accentLight = new THREE.PointLight("#fe1616", 4.2, 35, 2);
+      accentLight.position.set(8, 2, 12);
+      scene.add(ambientLight, sunLight, rimLight, accentLight);
 
-      const ambientLight = new THREE.AmbientLight("#ffffff", 0.9);
-      const keyLight = new THREE.PointLight("#fe1616", 8, 22, 2);
-      keyLight.position.set(3.5, 2.5, 5);
-      const fillLight = new THREE.PointLight("#5ce0e5", 6, 24, 2);
-      fillLight.position.set(-4, -1, 4);
-      scene.add(ambientLight, keyLight, fillLight);
-
-      const stage = new THREE.Group();
-      scene.add(stage);
-
-      const glassMaterial = new THREE.MeshPhysicalMaterial({
-        color: "#fe1616",
-        emissive: "#3f0909",
-        roughness: 0.16,
-        metalness: 0.72,
-        transmission: 0.16,
-        thickness: 0.8,
-        clearcoat: 1,
-      });
-
-      const wireMaterial = new THREE.MeshStandardMaterial({
-        color: "#5ce0e5",
-        wireframe: true,
-        emissive: "#081f20",
-        roughness: 0.2,
-        metalness: 0.85,
-      });
-
-      const core = new THREE.Mesh(new THREE.IcosahedronGeometry(1.45, 1), glassMaterial);
-      const orbit = new THREE.Mesh(new THREE.TorusKnotGeometry(1.6, 0.16, 180, 24), wireMaterial);
-      orbit.rotation.set(0.8, 0.4, 0.1);
-      orbit.position.set(0.25, -0.15, -0.25);
-
-      const haloMaterial = new THREE.MeshBasicMaterial({
-        color: "#f5eee8",
-        transparent: true,
-        opacity: 0.35,
-      });
-      const halo = new THREE.Mesh(new THREE.TorusGeometry(2.45, 0.04, 32, 180), haloMaterial);
-      halo.rotation.x = Math.PI / 1.8;
-      halo.rotation.y = Math.PI / 4;
+      const world = new THREE.Group();
+      scene.add(world);
 
       const logoTexture = new THREE.TextureLoader().load(logoMark);
-      const logoPlate = new THREE.Mesh(
-        new THREE.PlaneGeometry(2.1, 2.7),
+      logoTexture.colorSpace = THREE.SRGBColorSpace;
+
+      const horizon = new THREE.Mesh(
+        new THREE.PlaneGeometry(90, 34),
+        new THREE.MeshBasicMaterial({
+          color: "#f8c28f",
+          transparent: true,
+          opacity: 0.75,
+        }),
+      );
+      horizon.position.set(0, 9, -30);
+      world.add(horizon);
+
+      const sun = new THREE.Mesh(
+        new THREE.SphereGeometry(3.2, 32, 32),
+        new THREE.MeshBasicMaterial({
+          color: "#ffcb96",
+          transparent: true,
+          opacity: 0.88,
+        }),
+      );
+      sun.position.set(18, 7.5, -25);
+      world.add(sun);
+
+      const ground = new THREE.Mesh(
+        new THREE.PlaneGeometry(90, 52),
+        new THREE.MeshStandardMaterial({
+          color: "#20120d",
+          roughness: 0.97,
+          metalness: 0.04,
+        }),
+      );
+      ground.rotation.x = -Math.PI / 2;
+      ground.position.y = -1.7;
+      world.add(ground);
+
+      const reflectiveStrip = new THREE.Mesh(
+        new THREE.PlaneGeometry(90, 9),
+        new THREE.MeshStandardMaterial({
+          color: "#7f3d1f",
+          emissive: "#65240e",
+          roughness: 0.14,
+          metalness: 0.08,
+          transparent: true,
+          opacity: 0.72,
+        }),
+      );
+      reflectiveStrip.rotation.x = -Math.PI / 2;
+      reflectiveStrip.position.set(0, -1.66, 5.5);
+      world.add(reflectiveStrip);
+
+      const laneMaterial = new THREE.MeshBasicMaterial({
+        color: "#e8c4a0",
+        transparent: true,
+        opacity: 0.32,
+      });
+      for (let i = -2; i <= 2; i += 1) {
+        const lane = new THREE.Mesh(new THREE.BoxGeometry(70, 0.03, 0.18), laneMaterial.clone());
+        lane.position.set(0, -1.63, i * 4.3 + 6);
+        world.add(lane);
+      }
+
+      const containerPalette = ["#34211a", "#442a1f", "#6c3924", "#2a1c18"];
+            const containers = new THREE.Group();
+      for (let row = 0; row < 2; row += 1) {
+        for (let i = 0; i < 6; i += 1) {
+          const material = new THREE.MeshStandardMaterial({
+            color: containerPalette[(i + row) % containerPalette.length],
+            roughness: 0.55,
+            metalness: 0.15,
+            transparent: true,
+            opacity: 0.96,
+          });          const box = new THREE.Mesh(new THREE.BoxGeometry(2.8, 2 + row * 0.35, 1.65), material);
+          box.position.set(8 + i * 3.5, -0.75 + row * 1.9, -8.5 + row * 2.4);
+          containers.add(box);
+        }
+      }
+      world.add(containers);
+
+      const logoBillboard = new THREE.Mesh(
+        new THREE.PlaneGeometry(3.1, 4),
         new THREE.MeshBasicMaterial({
           map: logoTexture,
           transparent: true,
-          opacity: 0.92,
+          opacity: 0.8,
         }),
       );
-      logoPlate.position.set(-0.2, 0.1, -0.55);
-      logoPlate.rotation.y = -0.15;
+      logoBillboard.position.set(12.5, 3.2, -10.5);
+      logoBillboard.rotation.y = -0.7;
+      world.add(logoBillboard);
 
-      stage.add(core, orbit, halo, logoPlate);
+      const truckMaterialSets = [];
 
-      const particleCount = 760;
-      const particlePositions = new Float32Array(particleCount * 3);
-      for (let i = 0; i < particleCount; i += 1) {
-        const radius = 7 + Math.random() * 6;
-        const theta = Math.random() * Math.PI * 2;
-        const phi = Math.acos(2 * Math.random() - 1);
-        particlePositions[i * 3] = radius * Math.sin(phi) * Math.cos(theta);
-        particlePositions[i * 3 + 1] = radius * Math.sin(phi) * Math.sin(theta);
-        particlePositions[i * 3 + 2] = radius * Math.cos(phi);
+      const createTruck = ({
+        scale = 1,
+        color = "#f4dbc4",
+        accent = "#fe1616",
+        wire = "#5ce0e5",
+        logo = false,
+      }) => {
+        const truck = new THREE.Group();
+        const solidMaterials = [];
+        const wireMaterials = [];
+
+        const makeSolid = (meshColor, opacity = 0.1, emissive = "#1a0b08") => {
+          const material = new THREE.MeshPhysicalMaterial({
+            color: meshColor,
+            emissive,
+            roughness: 0.28,
+            metalness: 0.45,
+            transparent: true,
+            opacity,
+            clearcoat: 0.65,
+          });
+          solidMaterials.push(material);
+          return material;
+        };
+
+        const makeWire = (meshColor, opacity = 0.95) => {
+          const material = new THREE.MeshBasicMaterial({
+            color: meshColor,
+            wireframe: true,
+            transparent: true,
+            opacity,
+          });
+          wireMaterials.push(material);
+          return material;
+        };
+
+        const trailerGeometry = new THREE.BoxGeometry(7, 2.35, 2.2);
+        const trailerSolid = new THREE.Mesh(trailerGeometry, makeSolid(color, 0.12, "#2d140e"));
+        const trailerWire = new THREE.Mesh(trailerGeometry, makeWire(wire, 0.88));
+        trailerSolid.position.set(0.8, 0.25, 0);
+        trailerWire.position.copy(trailerSolid.position);
+        truck.add(trailerSolid, trailerWire);
+
+        const cabGeometry = new THREE.BoxGeometry(2.2, 1.95, 2);
+        const cabSolid = new THREE.Mesh(cabGeometry, makeSolid(accent, 0.18, "#340808"));
+        const cabWire = new THREE.Mesh(cabGeometry, makeWire("#f5d3a7", 0.92));
+        cabSolid.position.set(4.9, -0.05, 0);
+        cabWire.position.copy(cabSolid.position);
+        truck.add(cabSolid, cabWire);
+
+        const roof = new THREE.Mesh(new THREE.BoxGeometry(1.3, 0.55, 1.9), makeSolid("#f2e6dc", 0.22, "#3a2116"));
+        roof.position.set(5.1, 1.1, 0);
+        const roofWire = new THREE.Mesh(new THREE.BoxGeometry(1.3, 0.55, 1.9), makeWire("#5ce0e5", 0.8));
+        roofWire.position.copy(roof.position);
+        truck.add(roof, roofWire);
+
+        const windshield = new THREE.Mesh(
+          new THREE.BoxGeometry(0.3, 1.1, 1.75),
+          new THREE.MeshPhysicalMaterial({
+            color: "#5ce0e5",
+            roughness: 0.1,
+            transmission: 0.68,
+            transparent: true,
+            opacity: 0.18,
+          }),
+        );
+        windshield.position.set(6.08, 0.12, 0);
+        truck.add(windshield);
+
+        const wheelGeometry = new THREE.CylinderGeometry(0.42, 0.42, 0.32, 24);
+        const wheelMaterial = new THREE.MeshStandardMaterial({
+          color: "#090909",
+          roughness: 0.92,
+          metalness: 0.08,
+        });
+        const wheelWireMaterial = makeWire("#5ce0e5", 0.66);
+        const wheelPositions = [
+          [-1.5, -1.08, -1.05],
+          [-1.5, -1.08, 1.05],
+          [1.4, -1.08, -1.05],
+          [1.4, -1.08, 1.05],
+          [4.45, -1.08, -1.05],
+          [4.45, -1.08, 1.05],
+          [5.85, -1.08, -1.05],
+          [5.85, -1.08, 1.05],
+        ];
+        wheelPositions.forEach(([x, y, z]) => {
+          const wheel = new THREE.Mesh(wheelGeometry, wheelMaterial);
+          wheel.rotation.z = Math.PI / 2;
+          wheel.position.set(x, y, z);
+          const wheelWire = new THREE.Mesh(wheelGeometry, wheelWireMaterial.clone());
+          wheelWire.rotation.z = Math.PI / 2;
+          wheelWire.position.copy(wheel.position);
+          wireMaterials.push(wheelWire.material);
+          truck.add(wheel, wheelWire);
+        });
+
+        if (logo) {
+          const logoPanel = new THREE.Mesh(
+            new THREE.PlaneGeometry(1.4, 1.95),
+            new THREE.MeshBasicMaterial({
+              map: logoTexture,
+              transparent: true,
+              opacity: 0.72,
+            }),
+          );
+          logoPanel.position.set(1.6, 0.38, 1.13);
+          truck.add(logoPanel);
+        }
+
+        truck.scale.setScalar(scale);
+        truckMaterialSets.push({ solidMaterials, wireMaterials });
+        return truck;
+      };
+
+      const leadTruck = createTruck({ scale: 1.2, logo: true });
+      leadTruck.position.set(-6.5, -0.28, 5.5);
+      leadTruck.rotation.y = -0.08;
+      world.add(leadTruck);
+
+      const convoyTruck = createTruck({
+        scale: 0.84,
+        color: "#f1d6ba",
+        accent: "#c8662d",
+      });
+      convoyTruck.position.set(7.8, -0.65, -2.8);
+      convoyTruck.rotation.y = -0.12;
+      world.add(convoyTruck);
+
+      const blueprintTruck = createTruck({
+        scale: 0.92,
+        color: "#ffd2b5",
+        accent: "#fe1616",
+      });
+      blueprintTruck.position.set(2.1, -0.56, 8.2);
+      blueprintTruck.rotation.y = 0.08;
+      truckMaterialSets[2].solidMaterials.forEach((material) => {
+        material.opacity = 0.02;
+      });
+      world.add(blueprintTruck);
+
+      const particlePositions = new Float32Array(720 * 3);
+      for (let i = 0; i < 720; i += 1) {
+        particlePositions[i * 3] = (Math.random() - 0.5) * 44;
+        particlePositions[i * 3 + 1] = Math.random() * 8 + 0.3;
+        particlePositions[i * 3 + 2] = (Math.random() - 0.5) * 28 - 8;
       }
-
       const particleGeometry = new THREE.BufferGeometry();
       particleGeometry.setAttribute("position", new THREE.BufferAttribute(particlePositions, 3));
-      const particleField = new THREE.Points(
-        particleGeometry,
-        new THREE.PointsMaterial({
-          color: "#5ce0e5",
-          size: 0.035,
-          transparent: true,
-          opacity: 0.9,
-        }),
-      );
-      scene.add(particleField);
+      const particleMaterial = new THREE.PointsMaterial({
+        color: "#f6cfa8",
+        size: 0.06,
+        transparent: true,
+        opacity: 0.35,
+      });
+      const particleField = new THREE.Points(particleGeometry, particleMaterial);
+      world.add(particleField);
 
-      const lookTarget = { x: 0, y: 0, z: 0 };
+      const lookTarget = { x: 0.5, y: 0.2, z: 1.5 };
       let animationFrame = null;
 
       const renderScene = () => {
-        core.rotation.y += 0.004;
-        core.rotation.x += 0.0015;
-        orbit.rotation.x += 0.003;
-        orbit.rotation.y -= 0.002;
-        logoPlate.rotation.y += 0.001;
-        particleField.rotation.y += 0.0009;
-        particleField.rotation.x += 0.00025;
-        halo.rotation.z += 0.002;
+        particleField.rotation.y += 0.0006;
+        leadTruck.position.z += Math.sin(Date.now() * 0.0015) * 0.002;
+        convoyTruck.position.z += Math.cos(Date.now() * 0.0012) * 0.0015;
+        logoBillboard.lookAt(camera.position);
         camera.lookAt(lookTarget.x, lookTarget.y, lookTarget.z);
         renderer.render(scene, camera);
         animationFrame = window.requestAnimationFrame(renderScene);
       };
-
       renderScene();
+
+      const setTypedByProgress = (progress) => {
+        const nextCount = Math.max(1, Math.round(progress * heroSentence.length));
+        const nextText = heroSentence.slice(0, nextCount);
+        setTypedMessage((current) => (current === nextText ? current : nextText));
+        const routeIndex = Math.min(routeStates.length - 1, Math.floor(progress * routeStates.length));
+        const nextState = routeStates[routeIndex];
+        setRouteState((current) => (current === nextState ? current : nextState));
+      };
+      setTypedByProgress(0.02);
 
       const ctx = gsap.context(() => {
         const revealItems = gsap.utils.toArray(".home-reveal");
         revealItems.forEach((item, index) => {
           gsap.fromTo(
             item,
-            { autoAlpha: 0, y: 60 },
+            { autoAlpha: 0, y: 48 },
             {
               autoAlpha: 1,
               y: 0,
-              duration: 1,
+              duration: 0.9,
               ease: "power3.out",
-              delay: index * 0.05,
+              delay: index * 0.03,
               scrollTrigger: {
                 trigger: item,
                 start: "top 82%",
@@ -259,29 +412,58 @@ const Home = () => {
           );
         });
 
-        gsap.timeline({
+        const tl = gsap.timeline({
           scrollTrigger: {
             trigger: heroRef.current,
             start: "top top",
             end: "bottom bottom",
-            scrub: 1.2,
+            scrub: 1.1,
+            onUpdate: (self) => {
+              setTypedByProgress(self.progress);
+            },
           },
-        })
-          .to(camera.position, { x: -1.8, y: 0.8, z: 6.2, ease: "none" }, 0)
-          .to(lookTarget, { x: -0.3, y: 0.2, z: 0, ease: "none" }, 0)
-          .to(stage.rotation, { y: Math.PI * 0.65, x: 0.4, ease: "none" }, 0)
-          .to(stage.position, { x: -0.7, y: 0.15, z: 0.2, ease: "none" }, 0)
-          .to(halo.scale, { x: 1.2, y: 1.2, z: 1.2, ease: "none" }, 0)
-          .to(camera.position, { x: 1.4, y: -0.35, z: 4.8, ease: "none" }, 1)
-          .to(lookTarget, { x: 0.55, y: -0.1, z: 0, ease: "none" }, 1)
-          .to(stage.rotation, { y: Math.PI * 1.4, x: -0.2, ease: "none" }, 1)
-          .to(stage.position, { x: 0.85, y: -0.45, z: -0.3, ease: "none" }, 1)
-          .to(core.scale, { x: 1.12, y: 1.12, z: 1.12, ease: "none" }, 1)
-          .to(camera.position, { x: 0.2, y: 0.15, z: 3.9, ease: "none" }, 2)
-          .to(lookTarget, { x: 0, y: 0, z: 0, ease: "none" }, 2)
-          .to(stage.rotation, { y: Math.PI * 2, x: 0.15, ease: "none" }, 2)
-          .to(stage.position, { x: 0, y: 0, z: 0.4, ease: "none" }, 2)
-          .to(particleField.rotation, { y: Math.PI * 0.5, ease: "none" }, 2);
+        });
+
+        tl.to(camera.position, { x: -5.8, y: 1.8, z: 13.5, ease: "none" }, 0)
+          .to(lookTarget, { x: 2.2, y: 0.25, z: 5.5, ease: "none" }, 0)
+          .to(leadTruck.position, { x: -2.1, z: 4.2, ease: "none" }, 0)
+          .to(convoyTruck.position, { x: 5.2, z: -1.8, ease: "none" }, 0)
+          .to(sun.position, { x: 16, y: 7.8, z: -24, ease: "none" }, 0)
+          .to(camera.position, { x: -1.4, y: 1.25, z: 10.1, ease: "none" }, 1)
+          .to(lookTarget, { x: 3.4, y: 0.1, z: 2.6, ease: "none" }, 1)
+          .to(leadTruck.position, { x: 0.9, z: 2.6, ease: "none" }, 1)
+          .to(leadTruck.rotation, { y: 0.02, ease: "none" }, 1)
+          .to(convoyTruck.position, { x: 2.8, z: -0.2, ease: "none" }, 1)
+          .to(blueprintTruck.position, { x: -1.1, z: 6.4, ease: "none" }, 1)
+          .to(camera.position, { x: 2.4, y: 2.2, z: 8.6, ease: "none" }, 2)
+          .to(lookTarget, { x: 1.4, y: 0.25, z: 5.4, ease: "none" }, 2)
+          .to(leadTruck.position, { x: 2.6, z: 3.3, ease: "none" }, 2)
+          .to(convoyTruck.position, { x: -0.1, z: 3.7, ease: "none" }, 2)
+          .to(blueprintTruck.position, { x: 4.2, z: 1.9, ease: "none" }, 2)
+          .to(containers.position, { x: -1.4, z: 0.3, ease: "none" }, 2)
+          .to(camera.position, { x: 5.8, y: 2.8, z: 11.8, ease: "none" }, 3)
+          .to(lookTarget, { x: 4.6, y: 0.45, z: 4.6, ease: "none" }, 3)
+          .to(leadTruck.position, { x: 5.4, z: 4.5, ease: "none" }, 3)
+          .to(convoyTruck.position, { x: 2.6, z: 6.7, ease: "none" }, 3)
+          .to(blueprintTruck.position, { x: 7.4, z: 3.9, ease: "none" }, 3)
+          .to(particleField.rotation, { y: Math.PI * 0.36, ease: "none" }, 3);
+
+        truckMaterialSets.forEach(({ solidMaterials, wireMaterials }, index) => {
+          const start = index * 0.48;
+          solidMaterials.forEach((material) => {
+            tl.to(material, { opacity: 0.92, duration: 0.8, ease: "none" }, start + 0.35);
+          });
+          wireMaterials.forEach((material) => {
+            tl.to(material, { opacity: index === 2 ? 0.1 : 0.16, duration: 0.8, ease: "none" }, start + 0.45);
+          });
+        });
+
+        gsap.to(".hero-scanline", {
+          backgroundPositionX: "240px",
+          repeat: -1,
+          duration: 8,
+          ease: "none",
+        });
       }, homeRef);
 
       window.addEventListener("resize", resizeRenderer);
@@ -293,21 +475,16 @@ const Home = () => {
           window.cancelAnimationFrame(animationFrame);
         }
         particleGeometry.dispose();
-        core.geometry.dispose();
-        orbit.geometry.dispose();
-        halo.geometry.dispose();
-        logoPlate.geometry.dispose();
-        glassMaterial.dispose();
-        wireMaterial.dispose();
-        haloMaterial.dispose();
-        logoPlate.material.dispose();
-        particleField.material.dispose();
+        particleMaterial.dispose();
         logoTexture.dispose();
         renderer.dispose();
       };
     })();
 
-    return () => cleanup();
+    return () => {
+      cancelled = true;
+      cleanup();
+    };
   }, []);
 
   useEffect(() => {
@@ -326,7 +503,6 @@ const Home = () => {
     );
 
     observer.observe(splineSectionRef.current);
-
     return () => observer.disconnect();
   }, []);
 
@@ -335,28 +511,37 @@ const Home = () => {
       <section className="hero-canvas" ref={heroRef}>
         <div className="hero-canvas__sticky">
           <canvas ref={canvasRef} className="hero-canvas__surface" />
-          <div className="hero-canvas__glow hero-canvas__glow--left" />
-          <div className="hero-canvas__glow hero-canvas__glow--right" />
+          <div className="hero-canvas__sunset" />
+          <div className="hero-canvas__vignette" />
+          <div className="hero-scanline" />
         </div>
 
         <div className="hero-shell section__padding">
           <div className="hero-copy">
-            <span className="hero-chip home-reveal">
-              <img src={logoMark} alt="ADE.T logo" className="hero-chip__logo" />
-              Portfolio Revamp / Node 24 / 3D Storytelling
-            </span>
-            <p className="hero-kicker home-reveal">TIMILEHIN ADEWALE</p>
+            <div className="hero-topbar home-reveal">
+              <span className="hero-chip">
+                <img src={logoMark} alt="ADE.T logo" className="hero-chip__logo" />
+                ADE.T / Scroll Cinema
+              </span>
+              <span className="hero-route">
+                <FiNavigation />
+                {routeState}
+              </span>
+            </div>
+
+            <p className="hero-kicker home-reveal">TIMILEHIN ADEWALE / FRONTEND MOTION SYSTEMS</p>
             <h1 className="hero-title home-reveal">
-              Building portfolio experiences that feel directed, tactile, and impossible to scroll past.
+              A portfolio that feels like the camera is traveling through the product.
             </h1>
             <div className="hero-type home-reveal">
-              <span className="hero-type__label">Now staging:</span>
-              <span className="hero-type__word">{headline}</span>
+              <span className="hero-type__label">Scroll-linked message</span>
+              <span className="hero-type__word">{typedMessage}</span>
               <span className="hero-type__cursor" />
             </div>
             <p className="hero-description home-reveal">
-              This redesign turns your landing page into a cinematic product pitch with scroll-linked 3D
-              motion, sharper messaging, and a better sense of craft from the first frame.
+              The reference you shared leans on scrollytelling, not just animation. So this direction
+              pushes the site toward a cinematic yard run: convoy movement, blueprint overlays, and text
+              reveals that advance only when the visitor does.
             </p>
             <div className="hero-actions home-reveal">
               <Link to="/project" className="hero-button hero-button--primary">
@@ -370,16 +555,16 @@ const Home = () => {
             </div>
             <div className="hero-metrics home-reveal">
               <div>
-                <strong>3D</strong>
-                <span>Three.js scene tied to scroll progress</span>
+                <strong>Yard Scene</strong>
+                <span>Truck-like branded geometry gliding through a sunset logistics world</span>
               </div>
               <div>
-                <strong>GSAP</strong>
-                <span>ScrollTrigger timelines, reveals, and pacing</span>
+                <strong>Scroll Sync</strong>
+                <span>Camera, materials, and copy all progress with the wheel or touch drag</span>
               </div>
               <div>
-                <strong>Spline</strong>
-                <span>Interactive vignette for extra dimensionality</span>
+                <strong>Blueprint FX</strong>
+                <span>Wireframe overlays dissolve into solid surfaces as the sequence builds</span>
               </div>
             </div>
           </div>
@@ -388,11 +573,11 @@ const Home = () => {
             <div className="hero-card hero-card--profile">
               <img src={me} alt="Timilehin Adewale portrait" className="hero-card__portrait" />
               <div>
-                <p className="hero-card__eyebrow">Creative focus</p>
-                <h2>Frontend systems with atmosphere</h2>
+                <p className="hero-card__eyebrow">Director's note</p>
+                <h2>Interface engineering with cinematic restraint</h2>
                 <p>
-                  I blend interface engineering with motion and storytelling so products feel intentional,
-                  not just functional.
+                  Your brand already has a sharp red-and-aqua identity, so this version uses that palette as
+                  the "tech layer" against a sunrise industrial atmosphere instead of default neon futurism.
                 </p>
               </div>
             </div>
@@ -404,13 +589,23 @@ const Home = () => {
               </div>
               <div className="hero-card__heading">
                 <FiPlay />
-                <span>Scene stack</span>
+                <span>Scrollytelling stack</span>
               </div>
               <ul>
                 {capabilities.map((item) => (
                   <li key={item}>{item}</li>
                 ))}
               </ul>
+            </div>
+
+            <div className="hero-card hero-card--command">
+              <div className="hero-card__heading">
+                <FiZap />
+                <span>Motion cues</span>
+              </div>
+              <p>`camera.push()` through the yard</p>
+              <p>`wireframe.fade()` into solid forms</p>
+              <p>`copy.type()` with scroll progress</p>
             </div>
           </div>
         </div>
@@ -429,7 +624,7 @@ const Home = () => {
       <section className="portfolio-section section__padding home-reveal">
         <div className="section-heading">
           <p className="section-heading__label">Selected work</p>
-          <h2>Proof that the visual ambition can still ship real products.</h2>
+          <h2>The cinematic layer still needs real projects underneath it, so the work stays front and center.</h2>
         </div>
 
         <div className="project-grid">
@@ -458,16 +653,16 @@ const Home = () => {
 
       <section className="portfolio-section portfolio-section--spline section__padding" ref={splineSectionRef}>
         <div className="section-heading home-reveal">
-          <p className="section-heading__label">Interactive lab</p>
-          <h2>Spline adds a second layer of depth without replacing the custom Three.js scene.</h2>
+          <p className="section-heading__label">Interactive Lab</p>
+          <h2>Spline stays available as the second camera angle, but the lead storytelling is now your custom yard scene.</h2>
         </div>
 
         <div className="spline-layout">
           <div className="spline-copy home-reveal">
             <p>
-              The homepage now uses two kinds of dimensional storytelling: a handcrafted Three.js scene for
-              scroll choreography, and a dedicated Spline embed for an interactive product vignette that can
-              be swapped for your own branded asset later.
+              The reference site uses a strong single narrative device. Here, that role belongs to the custom
+              Three.js convoy sequence. Spline remains useful for secondary modules, branded product callouts,
+              or interactive showcases deeper in the site.
             </p>
             <div className="spline-copy__actions">
               <a href="https://github.com/timadewale1" target="_blank" rel="noreferrer">
@@ -487,7 +682,11 @@ const Home = () => {
               <img src={logoMark} alt="ADE.T logo" className="spline-frame__logo" />
             </div>
             <Suspense fallback={<div className="spline-loading">Loading branded 3D vignette...</div>}>
-              {canLoadSpline ? <BrandSpline /> : <div className="spline-loading">Branded Spline scene primed on approach.</div>}
+              {canLoadSpline ? (
+                <BrandSpline />
+              ) : (
+                <div className="spline-loading">Branded Spline module armed for the next section.</div>
+              )}
             </Suspense>
           </div>
         </div>
@@ -496,10 +695,10 @@ const Home = () => {
       <section className="portfolio-section portfolio-section--cta section__padding home-reveal">
         <div className="cta-block">
           <p className="section-heading__label">Next move</p>
-          <h2>The foundation is ready for a full portfolio overhaul across the remaining routes.</h2>
+          <h2>This gives the homepage the right grammar. The next win is carrying the same system across the whole site.</h2>
           <p>
-            We now have the runtime update and a high-impact homepage direction in place. From here we can
-            carry the same visual language into About, Projects, and Contact so the whole site feels unified.
+            About can become the technical dossier, Projects can inherit the convoy card language, and Contact
+            can land like the final stop in the route rather than a separate page with a different mood.
           </p>
           <div className="cta-links">
             <Link to="/about">About page</Link>
@@ -513,3 +712,4 @@ const Home = () => {
 };
 
 export default Home;
+
